@@ -14,6 +14,7 @@ class App extends Component{
     super(props);
     this.state = {
       mode:'read',
+      selected_content_id : 2,
       welcome: {title:"Welcome!", desc:"Hello, this is React Homepage!"},
       subject: {title:"WEB", desc:"World Wide Web!!!"},
       contents:[
@@ -32,8 +33,9 @@ class App extends Component{
       _title = this.state.welcome.title;
       _desc = this.state.welcome.desc;
     } else if(this.state.mode === 'read') {
-      _title = this.state.contents[0].title;
-      _desc = this.state.contents[0].desc;
+      console.log('this.state.selected_content_id : ', this.state.selected_content_id);
+      _title = this.state.contents[this.state.selected_content_id].title;
+      _desc = this.state.contents[this.state.selected_content_id].desc;
     }
 
     return(
@@ -57,8 +59,12 @@ class App extends Component{
         {/* 데이터 자체를 주입하는 부분 */}
         <TOC 
           data={this.state.contents}
-          onEventTake={function(){
-            
+          onEventTake={function(id_num){
+            this.setState(
+              {
+                selected_content_id:id_num - 1,
+                mode:'read'
+              });
           }.bind(this)}
         ></TOC>
         <Content
