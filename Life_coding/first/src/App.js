@@ -1,8 +1,10 @@
 import React, { Component } from 'react'; // eslint-disable-next-line
 import { render } from 'react-dom'; // eslint-disable-next-line
 import TOC from "./components/TOC";
-import Content from "./components/Content";
+import ReadContent from "./components/ReadContent";
+import CreateContent from "./components/CreateContent";
 import Subject from "./components/Subject";
+import Contoller from "./components/Contoller";
 import './App.css';
 
 
@@ -27,16 +29,23 @@ class App extends Component{
 
   render() {
 
-    let _title, _desc = null;
+    let _title, _desc, _article = null;
 
     if(this.state.mode === 'welcome'){
       _title = this.state.welcome.title;
       _desc = this.state.welcome.desc;
+      _article = <ReadContent title={_title} desc={_desc} ></ReadContent>
+      
     } else if(this.state.mode === 'read') {
       console.log('this.state.selected_content_id : ', this.state.selected_content_id);
       _title = this.state.contents[this.state.selected_content_id].title;
       _desc = this.state.contents[this.state.selected_content_id].desc;
+      _article = <ReadContent title={_title} desc={_desc} ></ReadContent>
+    } else if(this.state.mode === 'create') {
+      _article = <CreateContent title={_title} desc={_desc} ></CreateContent>
     }
+
+    
 
     return(
       <div className="App">
@@ -67,34 +76,20 @@ class App extends Component{
               });
           }.bind(this)}
         ></TOC>
-        <Content
-          title={_title}
-          desc={_desc}>
-        </Content>
+
+        <Contoller
+          onEventTake={function(mode){
+            this.setState({mode:mode});
+          }.bind(this)}
+        ></Contoller>
+
+        {/* 가변적 */}
+        {_article}
+
       </div>
     )
   }
 }
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
 
 export default App;
