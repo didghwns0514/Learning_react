@@ -41,8 +41,24 @@ class App extends Component{
       _title = this.state.contents[this.state.selected_content_id].title;
       _desc = this.state.contents[this.state.selected_content_id].desc;
       _article = <ReadContent title={_title} desc={_desc} ></ReadContent>
+
     } else if(this.state.mode === 'create') {
-      _article = <CreateContent title={_title} desc={_desc} ></CreateContent>
+      _article = 
+        <CreateContent 
+          title={_title} desc={_desc} 
+          onEventTake = {function(newTitle, newDesc){
+            // add new content
+            let new_object = {
+              id:this.state.contents.length+1,
+              title:newTitle,
+              desc:newDesc
+            }
+            let tmp_state_contents = this.state.contents
+            tmp_state_contents.push(new_object);
+            this.setState({contents:tmp_state_contents});
+          }.bind(this)}
+        >
+        </CreateContent>
     }
 
     
