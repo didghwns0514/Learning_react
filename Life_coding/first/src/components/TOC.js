@@ -19,6 +19,30 @@ class TOC extends Component {
 
   }
 
+  shouldComponentUpdate(newProps, newState) {
+    console.log("======> TOC shouldComponentUpdate has been loaded");
+    
+    console.group('new objects');
+    console.log('newProps.data : ', newProps.data);
+    console.log('this.props.data : ', this.props.data);
+    console.log('newState : ', newState);
+    console.groupEnd();
+    
+    if(this.props.data === newProps.data){
+      return false;
+    }
+    else{
+      return true;
+    }
+    
+    // if(this.props.reload === 'true'){
+    //   return true;
+    // }
+    // else{
+    //   return false;
+    // }
+  }
+
   render() {
 
     let data = this.props.data;

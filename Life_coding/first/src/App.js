@@ -53,8 +53,9 @@ class App extends Component{
               title:newTitle,
               desc:newDesc
             }
-            let tmp_state_contents = this.state.contents
-            tmp_state_contents.push(new_object);
+            // let tmp_state_contents = this.state.contents
+            // tmp_state_contents.push(new_object);
+            let tmp_state_contents = this.state.contents.concat(new_object);
             this.setState({contents:tmp_state_contents});
           }.bind(this)}
         >
