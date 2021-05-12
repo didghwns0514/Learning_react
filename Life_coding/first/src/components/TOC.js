@@ -32,7 +32,7 @@ class TOC extends Component {
       return false;
     }
     else{
-      return true;
+      return true; 
     }
     
     // if(this.props.reload === 'true'){
