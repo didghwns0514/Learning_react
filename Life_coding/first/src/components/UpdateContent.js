@@ -4,14 +4,10 @@ class UpdateContent extends Component {
   render() {
 
     // reading conents
-<<<<<<< HEAD
     let selected_content = this.props.data.find((container, index, obj)=>{
       return container.id - 1 === this.props.curr_index;
     });
 
-=======
-    
->>>>>>> 29f0691980b173e79d18f5cc3bfe11a841a3f5d0
 
     return (
       <article>
@@ -34,17 +30,10 @@ class UpdateContent extends Component {
           }.bind(this)}
         >
           <p>
-<<<<<<< HEAD
             <input type="text" name="title" placeholder={selected_content.title}></input>
           </p>
           <p>
             <textarea name="desc" placeholder={selected_content.desc}></textarea>
-=======
-            <input type="text" name="title" placeholder="title"></input>
-          </p>
-          <p>
-            <textarea name="desc" placeholder="description!"></textarea>
->>>>>>> 29f0691980b173e79d18f5cc3bfe11a841a3f5d0
           </p>
           <p>
             <input type="submit"></input>
