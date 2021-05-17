@@ -54,9 +54,15 @@ class App extends Component{
               desc:newDesc
             }
             // 1. Array.from 메써드 사용(완전 복제)
+<<<<<<< HEAD
             let tmp_state_contents = Array.from(this.state.contents);
             tmp_state_contents.push(new_object);
             this.setState({contents:tmp_state_contents});
+=======
+            let tmp_state_contetns = Array.from(this.state.contents);
+            tmp_state_contetns.push(new_object);
+            this.setState({contents:tmp_state_contetns});
+>>>>>>> 29f0691980b173e79d18f5cc3bfe11a841a3f5d0
 
 
             // 2. concat를 쓰는 경우
@@ -65,11 +71,16 @@ class App extends Component{
 
             console.group('create log');
             console.log('new_object : ', new_object);
+<<<<<<< HEAD
             console.log('state : ', tmp_state_contents);
+=======
+            console.log('state : ', tmp_state_contetns);
+>>>>>>> 29f0691980b173e79d18f5cc3bfe11a841a3f5d0
             console.groupEnd();
           }.bind(this)}
         >
         </CreateContent>
+<<<<<<< HEAD
 
     } else if(this.state.mode === 'update'){
       console.log('update function!');
@@ -103,6 +114,26 @@ class App extends Component{
           this.setState({contents:tmp_state_contents});
             
         }.bind(this)} 
+=======
+    } else if(this.state.mode === 'update'){
+      console.log('update function!');
+      let tmp_curr_content_id = this.state.selected_content_id;
+
+      _article = <UpdateContent 
+        onEventTake = { function(newTitle, newDesc) {
+          let new_object = {
+              id:this.state.contents.length,
+              title:newTitle,
+              desc:newDesc
+            }
+
+            let tmp_state_contetns = Array.from(this.state.contents);
+            tmp_state_contetns[tmp_curr_content_id] = new_object;
+
+            this.setState({contents:tmp_state_contetns});
+            
+        }} 
+>>>>>>> 29f0691980b173e79d18f5cc3bfe11a841a3f5d0
         ></UpdateContent>
       
     }
