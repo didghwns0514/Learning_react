@@ -3,6 +3,7 @@ import { render } from 'react-dom'; // eslint-disable-next-line
 import TOC from "./components/TOC";
 import ReadContent from "./components/ReadContent";
 import CreateContent from "./components/CreateContent";
+import UpdateContent from "./components/UpdateContent";
 import Subject from "./components/Subject";
 import Contoller from "./components/Contoller";
 import './App.css';
@@ -27,8 +28,7 @@ class App extends Component{
     }
   }
 
-  render() {
-
+  getContent(){
     let _title, _desc, _article = null;
 
     if(this.state.mode === 'welcome'){
@@ -53,16 +53,65 @@ class App extends Component{
               title:newTitle,
               desc:newDesc
             }
-            // let tmp_state_contents = this.state.contents
-            // tmp_state_contents.push(new_object);
-            let tmp_state_contents = this.state.contents.concat(new_object);
+            // 1. Array.from 메써드 사용(완전 복제)
+            let tmp_state_contents = Array.from(this.state.contents);
+            tmp_state_contents.push(new_object);
             this.setState({contents:tmp_state_contents});
+
+
+            // 2. concat를 쓰는 경우
+            // let tmp_state_contents = this.state.contents.concat(new_object);
+            // this.setState({contents:tmp_state_contents});
+
+            console.group('create log');
+            console.log('new_object : ', new_object);
+            console.log('state : ', tmp_state_contents);
+            console.groupEnd();
           }.bind(this)}
         >
         </CreateContent>
+
+    } else if(this.state.mode === 'update'){
+      console.log('update function!');
+
+      _article = <UpdateContent 
+        curr_index={this.state.selected_content_id}
+        data={this.state.contents}
+        onEventTake = { function(newTitle, newDesc) {
+          console.log('newTitle : ', newTitle);
+          console.log('newDesc : ', newDesc);
+
+          let new_object = {
+              id:this.state.selected_content_id + 1,
+              title:newTitle,
+              desc:newDesc
+            }
+          
+          console.log('new object : ', new_object);
+          
+          let tmp_state_contents = Array.from(this.state.contents);
+          console.log('tmp_state_contents bef : ', tmp_state_contents);
+          for(let i=0; i < tmp_state_contents.length; i++){
+            if(tmp_state_contents[i].id - 1 === this.state.selected_content_id){
+              console.log('found!');
+              console.log('tmp_state_contents[i] : ', tmp_state_contents[i]);
+              tmp_state_contents[i] = new_object;
+              break;
+            }
+          }
+          console.log('tmp_state_contents aft : ', tmp_state_contents);
+          this.setState({contents:tmp_state_contents});
+            
+        }.bind(this)} 
+        ></UpdateContent>
+      
     }
 
-    
+    return _article;
+
+  }
+
+  render() {
 
     return(
       <div className="App">
@@ -101,7 +150,7 @@ class App extends Component{
         ></Contoller>
 
         {/* 가변적 */}
-        {_article}
+        {this.getContent()}
 
       </div>
     )
