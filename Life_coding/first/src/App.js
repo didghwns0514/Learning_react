@@ -28,6 +28,14 @@ class App extends Component{
     }
   }
 
+  getReadContent(){
+    let selected_content = this.state.contents.find((container, index, obj)=>{
+    return container.id - 1 === this.state.selected_content_id;
+    });
+
+    return selected_content;
+  }
+
   getContent(){
     let _title, _desc, _article = null;
 
@@ -76,7 +84,8 @@ class App extends Component{
 
       _article = <UpdateContent 
         curr_index={this.state.selected_content_id}
-        data={this.state.contents}
+        //data={this.state.contents}
+        data={this.getReadContent()}
         onEventTake = { function(newTitle, newDesc) {
           console.log('newTitle : ', newTitle);
           console.log('newDesc : ', newDesc);
