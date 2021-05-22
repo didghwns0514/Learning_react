@@ -16,8 +16,8 @@ class App extends Component{
   constructor(props){
     super(props);
     this.state = {
-      mode:'read',
-      selected_content_id : 2,
+      mode:'welcome',
+      selected_content_id : 0,
       welcome: {title:"Welcome!", desc:"Hello, this is React Homepage!"},
       subject: {title:"WEB", desc:"World Wide Web!!!"},
       contents:[
@@ -37,9 +37,12 @@ class App extends Component{
   }
 
   getContent(){
-    let _title, _desc, _article = null;
 
+    console.log('getContent - this.state.mode', this.state.mode);
+
+    let _title, _desc, _article = null;
     if(this.state.mode === 'welcome'){
+
       _title = this.state.welcome.title;
       _desc = this.state.welcome.desc;
       _article = <ReadContent title={_title} desc={_desc} ></ReadContent>
@@ -64,7 +67,10 @@ class App extends Component{
             // 1. Array.from 메써드 사용(완전 복제)
             let tmp_state_contents = Array.from(this.state.contents);
             tmp_state_contents.push(new_object);
-            this.setState({contents:tmp_state_contents});
+            this.setState({
+              contents:tmp_state_contents,
+              mode:'read'
+            });
 
 
             // 2. concat를 쓰는 경우
@@ -109,11 +115,20 @@ class App extends Component{
             }
           }
           console.log('tmp_state_contents aft : ', tmp_state_contents);
-          this.setState({contents:tmp_state_contents});
+          this.setState({
+            contents:tmp_state_contents,
+            mode:'read'
+          });
             
         }.bind(this)} 
         ></UpdateContent>
       
+    } else if(this.state.mode === "delete") {
+
+    } else {
+      this.setState({
+        mode:'welcome'
+      });
     }
 
     return _article;
@@ -154,7 +169,26 @@ class App extends Component{
 
         <Contoller
           onEventTake={function(mode){
-            this.setState({mode:mode});
+            if(mode === 'delete'){
+              if(window.confirm('will you delete?')){ // depends on user input
+                let tmp_selected = this.getReadContent();
+                let tmp_state_contents = Array.from(this.state.contents);
+
+                tmp_state_contents.splice(tmp_selected.id-1,1);
+
+                for(let i=0;i<tmp_state_contents.length;i++){
+                  tmp_state_contents[i].id = i+1;
+                }
+
+                this.setState({
+                  selected_content_id:0,
+                  contents:tmp_state_contents,
+                  mode:'welcome'
+                });
+              } 
+            } else {
+              this.setState({mode:mode});
+            }
           }.bind(this)}
         ></Contoller>
 
