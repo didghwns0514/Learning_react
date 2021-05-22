@@ -123,8 +123,6 @@ class App extends Component{
         }.bind(this)} 
         ></UpdateContent>
       
-    } else if(this.state.mode === "delete") {
-
     } else {
       this.setState({
         mode:'welcome'
