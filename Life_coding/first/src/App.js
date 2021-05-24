@@ -191,7 +191,7 @@ class App extends Component{
         ></Contoller>
 
         {/* 가변적 */}
-        {this.getContent()}
+        {this.getContent()} 
 
       </div>
     )
